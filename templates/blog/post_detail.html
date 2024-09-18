@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% if request.user == post.author.user %}
+    <a style="position: absolute;right: 10px" href="{% url 'blog:post-update' post.id %}">Edit Post</a>
+    <a style="position: absolute;right: 100px" href="{% url 'blog:post-delete' post.id %}">Delete Post</a>
+{% endif %}
+<h1>title : {{ post.title }}</h1>
+<p>context : {{ post.context }}</p>
+<p>category : {{ post.category.all | join:',' }}</p>
+<p>author : {{ post.author.first_name }} {{ post.author.last_name }}</p>
+{% if post.image %}
+    <img src="{{ post.image.url }}" style="width: 10rem;height: 10rem">
+{% endif %}
+<p> created_date : {{ post.created_date }}</p>
+<p>published_date : {{ post.published_date }}</p>
+
+</body>
+</html>

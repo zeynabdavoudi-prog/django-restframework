@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a style="position: absolute;right: 10px" href="{% url 'blog:post-create' %}"> Create Post</a>
+<h1>blog posts</h1>
+{% for post in posts %}
+    <ul><a style="text-decoration: none;color: black;font-size: 1.5rem" href="{% url 'blog:post-detail' post.id %}">----{{ post.title }}----</a>
+        
+        <li>{{ post.context | truncatewords:3 }}</li>
+        <li>{{ post.published_date }}</li>
+    </ul>
+{% endfor %}
+{# pagination #}
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+</body>
+</html>
